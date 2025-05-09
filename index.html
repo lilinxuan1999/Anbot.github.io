@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会员管理系统</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+nav {
+    background-color: #34495e;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #46637f;
+}
+
+.main-content {
+    display: flex;
+    margin-top: 20px;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.content {
+    flex: 1;
+    margin-left: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.login-form, .register-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.dashboard {
+    display: none;
+}
+
+.membership-plans {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.plan {
+    flex: 1;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 0 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.plan h3 {
+    margin-top: 0;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3498db;
+    margin: 15px 0;
+}
+
+.features {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.features li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.user-info {
+    margin-bottom: 20px;
+}
+
+.user-info p {
+    margin: 5px 0;
+}
+
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .content {
+        margin-left: 0;
+    }
+    
+    .membership-plans {
+        flex-direction: column;
+    }
+    
+    .plan {
+        margin: 10px 0;
+    }
+}
+    </style>
+</head>
+<body>
+<nav>
+<ul>
+    <li><a href="#" id="home-link">首页</a></li>
+    <li><a href="#" id="login-link">登录</a></li>
+    <li><a href="#" id="register-link">注册</a></li>
+    <li><a href="#" id="plans-link">会员方案</a></li>
+    <li><a href="#" id="dashboard-link" style="display: none;">会员中心</a></li>
+    <li><a href="#" id="logout-link" style="display: none;">退出登录</a></li>
+</ul>
+</nav>
+
+<div class="container">
+<div id="home-section">
+    <h2>欢迎来到会员管理系统</h2>
+    <p>我们提供多种会员方案，满足您的不同需求。</p>
+    
+    <div class="membership-plans">
+        <div class="plan">
+            <h3>基础会员</h3>
+            <div class="price">¥99/月</div>
+            <ul class="features">
+                <li>基础功能访问</li>
+                <li>每周更新</li>
+                <li>标准客服支持</li>
+            </ul>
+            <button>立即购买</button>
+        </div>
+        
+        <div class="plan">
+            <h3>高级会员</h3>
+            <div class="price">¥199/月</div>
+            <ul class="features">
+                <li>全部功能访问</li>
+                <li>实时更新</li>
+                <li>优先客服支持</li>
+                <li>专属教程</li>
+            </ul>
+            <button>立即购买</button>
+        </div>
+        
+        <div class="plan">
+            <h3>企业会员</h3>
+            <div class="price">¥599/月</div>
+            <ul class="features">
+                <li>全部功能访问</li>
+                <li>实时更新</li>
+                <li>24/7专属客服</li>
+                <li>定制化服务</li>
+                <li>多用户支持</li>
+            </ul>
+            <button>立即购买</button>
+        </div>
+    </div>
+</div>
+
+<div id="login-section" style="display: none;">
+    <div class="login-form">
+        <h2>会员登录</h2>
+        <div class="form-group">
+            <label for="login-username">用户名</label>
+            <input type="text" id="login-username" placeholder="请输入用户名">
+        </div>
+        <div class="form-group">
+            <label for="login-password">密码</label>
+            <input type="password" id="login-password" placeholder="请输入密码">
+        </div>
+        <div class="form-group">
+            <button id="login-button">登录</button>
+        </div>
+        <p>还没有账号？<a href="#" id="to-register">立即注册</a></p>
+    </div>
+</div>
+
+<div id="register-section" style="display: none;">
+    <div class="register-form">
+        <h2>会员注册</h2>
+        <div class="form-group">
+            <label for="register-username">用户名</label>
+            <input type="text" id="register-username" placeholder="请设置用户名">
+        </div>
+        <div class="form-group">
+            <label for="register-email">电子邮箱</label>
+            <input type="email" id="register-email" placeholder="请输入电子邮箱">
+        </div>
+        <div class="form-group">
+            <label for="register-password">密码</label>
+            <input type="password" id="register-password" placeholder="请设置密码">
+        </div>
+        <div class="form-group">
+            <label for="register-confirm-password">确认密码</label>
+            <input type="password" id="register-confirm-password" placeholder="请再次输入密码">
+        </div>
+        <div class="form-group">
+            <button id="register-button">注册</button>
+        </div>
+        <p>已有账号？<a href="#" id="to-login">立即登录</a></p>
+    </div>
+</div>
+
+<div id="plans-section" style="display: none;">
+    <h2>会员方案</h2>
+    <p>选择适合您的会员方案：</p>
+    
+    <div class="membership-plans">
+        <div class="plan">
+            <h3>基础会员</h3>
+            <div class="price">¥99/月</div>
+            <ul class="features">
+                <li>基础功能访问</li>
+                <li>每周更新</li>
+                <li>标准客服支持</li>
+            </ul>
+            <button>立即购买</button>
+        </div>
+        
+        <div class="plan">
+            <h3>高级会员</h3>
+            <div class="price">¥199/月</div>
+            <ul class="features">
+                <li>全部功能访问</li>
+                <li>实时更新</li>
+                <li>优先客服支持</li>
+                <li>专属教程</li>
+            </ul>
+            <button>立即购买</button>
+        </div>
+        
+        <div class="plan">
+            <h3>企业会员</h3>
+            <div class="price">¥599/月</div>
+            <ul class="features">
+                <li>全部功能访问</li>
+                <li>实时更新</li>
+                <li>24/7专属客服</li>
+                <li>定制化服务</li>
+                <li>多用户支持</li>
+            </ul>
+            <button>立即购买</button>
+        </div>
+    </div>
+</div>
+
+<div id="dashboard-section" style="display: none;">
+    <div class="main-content">
+        <div class="sidebar">
+            <h3>会员中心</h3>
+            <ul>
+                <li><a href="#" id="profile-link">个人资料</a></li>
+                <li><a href="#" id="subscription-link">订阅管理</a></li>
+                <li><a href="#" id="payments-link">支付记录</a></li>
+                <li><a href="#" id="settings-link">账户设置</a></li>
+            </ul>
+        </div>
+        
+        <div class="content">
+            <div id="profile-content">
+                <h2>个人资料</h2>
+                <div class="user-info">
+                    <p><strong>用户名：</strong> <span id="profile-username">用户001</span></p>
+                    <p><strong>电子邮箱：</strong> <span id="profile-email">user001@example.com</span></p>
+                    <p><strong>会员等级：</strong> <span id="profile-level">高级会员</span></p>
+                    <p><strong>注册时间：</strong> <span id="profile-register-date">2025-01-15</span></p>
+                    <p><strong>到期时间：</strong> <span id="profile-expiry-date">2025-06-15</span></p>
+                </div>
+                
+                <h3>编辑资料</h3>
+                <div class="form-group">
+                    <label for="edit-username">用户名</label>
+                    <input type="text" id="edit-username" value="用户001">
+                </div>
+                <div class="form-group">
+                    <label for="edit-email">电子邮箱</label>
+                    <input type="email" id="edit-email" value="user001@example.com">
+                </div>
+                <div class="form-group">
+                    <button id="save-profile">保存修改</button>
+                </div>
+            </div>
+            
+            <div id="subscription-content" style="display: none;">
+                <h2>订阅管理</h2>
+                <div class="user-info">
+                    <p><strong>当前方案：</strong> 高级会员</p>
+                    <p><strong>每月费用：</strong> ¥199</p>
+                    <p><strong>下次付款日：</strong> 2025-06-15</p>
+                    <p><strong>自动续费：</strong> 是</p>
+                </div>
+                
+                <h3>更改方案</h3>
+                <div class="form-group">
+                    <label for="change-plan">选择新方案</label>
+                    <select id="change-plan">
+                        <option value="basic">基础会员 - ¥99/月</option>
+                        <option value="premium" selected>高级会员 - ¥199/月</option>
+                        <option value="enterprise">企业会员 - ¥599/月</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button id="update-plan">更新方案</button>
+                </div>
+                
+                <h3>取消订阅</h3>
+                <p>取消订阅后，您的会员权益将持续到当前订阅周期结束。</p>
+                <div class="form-group">
+                    <button id="cancel-subscription">取消订阅</button>
+                </div>
+            </div>
+            
+            <div id="payments-content" style="display: none;">
+                <h2>支付记录</h2>
+                <table style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">日期</th>
+                            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">方案</th>
+                            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">金额</th>
+                            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">2025-05-15</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">高级会员</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">¥199</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">已支付</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">2025-04-15</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">高级会员</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">¥199</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">已支付</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">2025-03-15</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">高级会员</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">¥199</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">已支付</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="settings-content" style="display: none;">
+                <h2>账户设置</h2>
+                <h3>更改密码</h3>
+                <div class="form-group">
+                    <label for="current-password">当前密码</label>
+                    <input type="password" id="current-password" placeholder="请输入当前密码">
+                </div>
+                <div class="form-group">
+                    <label for="new-password">新密码</label>
+                    <input type="password" id="new-password" placeholder="请输入新密码">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-new-password">确认新密码</label>
+                    <input type="password" id="confirm-new-password" placeholder="请再次输入新密码">
+                </div>
+                <div class="form-group">
+                    <button id="change-password">更改密码</button>
+                </div>
+                
+                <h3>通知设置</h3>
+                <div class="form-group">
+                    <input type="checkbox" id="notify-payment" checked> 
+                    <label for="notify-payment" style="display: inline;">付款提醒</label>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="notify-news" checked> 
+                    <label for="notify-news" style="display: inline;">最新动态</label>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="notify-promo" checked> 
+                    <label for="notify-promo" style="display: inline;">促销信息</label>
+                </div>
+                <div class="form-group">
+                    <button id="save-settings">保存设置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<footer>
+<p>&copy; 2025 会员管理系统 | 隐私政策 | 服务条款 | 联系我们</p>
+</footer>
+
+<script>
+// 简单的页面切换功能
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取所有区块和链接
+    const homeSection = document.getElementById('home-section');
+    const loginSection = document.getElementById('login-section');
+    const registerSection = document.getElementById('register-section');
+    const plansSection = document.getElementById('plans-section');
+    const dashboardSection = document.getElementById('dashboard-section');
+    
+    const homeLink = document.getElementById('home-link');
+    const loginLink = document.getElementById('login-link');
+    const registerLink = document.getElementById('register-link');
+    const plansLink = document.getElementById('plans-link');
+    const dashboardLink = document.getElementById('dashboard-link');
+    const logoutLink = document.getElementById('logout-link');
+    
+    const toRegister = document.getElementById('to-register');
+    const toLogin = document.getElementById('to-login');
+    
+    // 获取仪表盘子页面和相应链接
+    const profileContent = document.getElementById('profile-content');
+    const subscriptionContent = document.getElementById('subscription-content');
+    const paymentsContent = document.getElementById('payments-content');
+    const settingsContent = document.getElementById('settings-content');
+    
+    const profileLink = document.getElementById('profile-link');
+    const subscriptionLink = document.getElementById('subscription-link');
+    const paymentsLink = document.getElementById('payments-link');
+    const settingsLink = document.getElementById('settings-link');
+    
+    // 隐藏所有区块的函数
+    function hideAllSections() {
+        homeSection.style.display = 'none';
+        loginSection.style.display = 'none';
+        registerSection.style.display = 'none';
+        plansSection.style.display = 'none';
+        dashboardSection.style.display = 'none';
+    }
+    
+    // 隐藏所有仪表盘内容的函数
+    function hideAllDashboardContents() {
+        profileContent.style.display = 'none';
+        subscriptionContent.style.display = 'none';
+        paymentsContent.style.display = 'none';
+        settingsContent.style.display = 'none';
+    }
+    
+    // 页面切换事件
+    homeLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllSections();
+        homeSection.style.display = 'block';
+    });
+    
+    loginLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllSections();
+        loginSection.style.display = 'block';
+    });
+    
+    registerLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllSections();
+        registerSection.style.display = 'block';
+    });
+    
+    plansLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllSections();
+        plansSection.style.display = 'block';
+    });
+    
+    dashboardLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllSections();
+        dashboardSection.style.display = 'block';
+        // 默认显示个人资料页面
+        hideAllDashboardContents();
+        profileContent.style.display = 'block';
+    });
+    
+    toRegister.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllSections();
+        registerSection.style.display = 'block';
+    });
+    
+    toLogin.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllSections();
+        loginSection.style.display = 'block';
+    });
+    
+    // 仪表盘内部页面切换
+    profileLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllDashboardContents();
+        profileContent.style.display = 'block';
+    });
+    
+    subscriptionLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllDashboardContents();
+        subscriptionContent.style.display = 'block';
+    });
+    
+    paymentsLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllDashboardContents();
+        paymentsContent.style.display = 'block';
+    });
+    
+    settingsLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllDashboardContents();
+        settingsContent.style.display = 'block';
+    });
+    
+    // 模拟登录功能
+    const loginButton = document.getElementById('login-button');
+    loginButton.addEventListener('click', function() {
+        const username = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+        
+        if(username && password) {
+            // 这里应该是进行实际的登录验证，这里仅作为演示
+            alert('登录成功！');
+            // 显示会员中心链接和登出链接
+            dashboardLink.style.display = 'inline';
+            logoutLink.style.display = 'inline';
+            // 隐藏登录和注册链接
+            loginLink.style.display = 'none';
+            registerLink.style.display = 'none';
+            // 跳转到会员中心
+            hideAllSections();
+            dashboardSection.style.display = 'block';
+            hideAllDashboardContents();
+            profileContent.style.display = 'block';
+            
+            // 设置个人资料信息
+            document.getElementById('profile-username').textContent = username;
+            document.getElementById('profile-email').textContent = 'user@example.com';
+            document.getElementById('edit-username').value = username;
+            document.getElementById('edit-email').value = 'user@example.com';
+        } else {
+            alert('请输入用户名和密码');
+        }
+    });
+    
+    // 模拟注册功能
+    const registerButton = document.getElementById('register-button');
+    registerButton.addEventListener('click', function() {
+        const username = document.getElementById('register-username').value;
+        const email = document.getElementById('register-email').value;
+        const password = document.getElementById('register-password').value;
+        const confirmPassword = document.getElementById('register-confirm-password').value;
+        
+        if(username && email && password && confirmPassword) {
+            if(password !== confirmPassword) {
+                alert('两次输入的密码不一致');
+                return;
+            }
+            // 这里应该是进行实际的注册操作，这里仅作为演示
+            alert('注册成功！请登录');
+            // 跳转到登录页面
+            hideAllSections();
+            loginSection.style.display = 'block';
+            // 预填充用户名
+            document.getElementById('login-username').value = username;
+        } else {
+            alert('请填写所有必填字段');
+        }
+    });
+    
+    // 模拟登出功能
+    logoutLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        // 显示登录和注册链接
+        loginLink.style.display = 'inline';
+        registerLink.style.display = 'inline';
+        // 隐藏会员中心链接和登出链接
+        dashboardLink.style.display = 'none';
+        logoutLink.style.display = 'none';
+        // 跳转到首页
+        hideAllSections();
+        homeSection.style.display = 'block';
+        
+        alert('已成功退出登录');
+    });
+    
+    // 保存个人资料
+    const saveProfileButton = document.getElementById('save-profile');
+    saveProfileButton.addEventListener('click', function() {
+        const username = document.getElementById('edit-username').value;
+        const email = document.getElementById('edit-email').value;
+        
+        if(username && email) {
+            // 更新显示信息
+            document.getElementById('profile-username').textContent = username;
+            document.getElementById('profile-email').textContent = email;
+            alert('个人资料已更新');
+        } else {
+            alert('请填写所有必填字段');
+        }
+    });
+    
+    // 更新会员方案
+    const updatePlanButton = document.getElementById('update-plan');
+    updatePlanButton.addEventListener('click', function() {
+        const plan = document.getElementById('change-plan').value;
+        let planName, planPrice;
+        
+        switch(plan) {
+            case 'basic':
+                planName = '基础会员';
+                planPrice = '¥99';
+                break;
+            case 'premium':
+                planName = '高级会员';
+                planPrice = '¥199';
+                break;
+            case 'enterprise':
+                planName = '企业会员';
+                planPrice = '¥599';
+                break;
+        }
+        
+        // 更新显示信息
+        document.getElementById('profile-level').textContent = planName;
+        alert(`会员方案已更新为${planName}，每月费用为${planPrice}`);
+    });
+    
+    // 更改密码
+    const changePasswordButton = document.getElementById('change-password');
+    changePasswordButton.addEventListener('click', function() {
+        const currentPassword = document.getElementById('current-password').value;
+        const newPassword = document.getElementById('new-password').value;
+        const confirmNewPassword = document.getElementById('confirm-new-password').value;
+        
+        if(currentPassword && newPassword && confirmNewPassword) {
+            if(newPassword !== confirmNewPassword) {
+                alert('两次输入的新密码不一致');
+                return;
+            }
+            // 这里应该是进行实际的密码验证和更改，这里仅作为演示
+            alert('密码已成功更改');
+            // 清空输入框
+            document.getElementById('current-password').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-new-password').value = '';
+        } else {
+            alert('请填写所有密码字段');
+        }
+    });
+    
+    // 保存通知设置
+    const saveSettingsButton = document.getElementById('save-settings');
+    saveSettingsButton.addEventListener('click', function() {
+        alert('通知设置已保存');
+    });
+// 取消订阅
+const cancelSubscriptionButton = document.getElementById('cancel-subscription');
+cancelSubscriptionButton.addEventListener('click', function() {
+    if(confirm('确定要取消订阅吗？您的会员权益将持续到当前订阅周期结束。')) {
+        alert('您的订阅已取消，会员权益将持续到当前订阅周期结束。');
+        // 这里应该是进行实际的取消订阅操作，这里仅作为演示
+        document.getElementById('profile-level').textContent = '即将到期';
+    }
+});
+
+// 初始化页面 - 默认显示首页
+hideAllSections();
+homeSection.style.display = 'block';
+});
+</script>
+</body>
+</html>
